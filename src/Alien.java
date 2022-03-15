@@ -10,7 +10,7 @@ int speed;
 		super.update();
 		y +=speed;
 	}
-private void draw() {
+void draw() {
 
 
 }
