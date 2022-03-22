@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
@@ -21,6 +23,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentState = MENU;
 	Rocketship rocko = new Rocketship(250, 700, 50, 50);
 	ObjectManager om = new ObjectManager(rocko);
+	Timer alienSpawner;
 
 	GamePanel() {
 		titleFont = new Font("Arial", Font.PLAIN, 48);
@@ -48,6 +51,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void updateGameState() {
 om.update();
+if (rocko.isActive == false) {
+currentState = END;	
+}
 	}
 
 	void updateEndState() {
@@ -69,7 +75,7 @@ om.update();
 	}
 
 	void drawGameState(Graphics g) {
-
+		
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 		om.draw(g);
@@ -106,14 +112,28 @@ om.update();
 		// TODO Auto-generated method stub
 
 	}
-
+public void startGame(){
+	alienSpawner = new Timer (1000, om);
+	alienSpawner.start();
+}
 	@Override
 	public void keyPressed(KeyEvent e) {
+		if (currentState == GAME &&e.getKeyCode() == KeyEvent.VK_SPACE) {
+		om.addProjectile(rocko.getProjectile());	
+		}
+		
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == END) {
 				currentState = MENU;
 			} else {
 				currentState++;
+			}
+
+			if(currentState == GAME) {
+				startGame();
+			}
+			if(currentState == END) {
+				startGame();
 			}
 		}
 		if (currentState == GAME) {
@@ -139,6 +159,6 @@ om.update();
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
 	}
 }
