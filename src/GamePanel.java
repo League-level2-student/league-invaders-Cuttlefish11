@@ -61,6 +61,7 @@ currentState = END;
 	}
 
 	void drawMenuState(Graphics g) {
+		om.score = 0;
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 
@@ -79,6 +80,9 @@ currentState = END;
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 		om.draw(g);
+		g.setFont(titlePage);
+		g.setColor(Color.WHITE);
+		g.drawString("Score: "+ om.score, 25, 25);
 	}
 
 	void drawEndState(Graphics g) {
@@ -91,6 +95,7 @@ currentState = END;
 
 		g.setFont(titlePage);
 		g.setColor(Color.WHITE);
+		g.drawString("Score: "+ om.score, 25, 25);
 		g.drawString("You killed enemies", 150, 400);
 		g.drawString("Press ENTER to restart", 125, 500);
 	}
@@ -120,6 +125,10 @@ public void startGame(){
 	public void keyPressed(KeyEvent e) {
 		if (currentState == GAME &&e.getKeyCode() == KeyEvent.VK_SPACE) {
 		om.addProjectile(rocko.getProjectile());	
+		if(currentState == END &&e.getKeyCode() == KeyEvent.VK_ENTER) {
+	Rocketship rocko = new Rocketship(250, 700, 50, 50);
+	ObjectManager om = new ObjectManager(rocko);
+		}
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -139,19 +148,19 @@ public void startGame(){
 		if (currentState == GAME) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
 				System.out.println("UP");
-				rocko.up();
+				rocko.up = true;
 			}
 			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				System.out.println("DOWN");
-				rocko.down();
+				rocko.down = true;
 			}
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 				System.out.println("LEFT");
-				rocko.left();
+				rocko.left = true;
 			}
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 				System.out.println("RIGHT");
-				rocko.right();
+				rocko.right = true;
 			}
 		}
 	}
@@ -159,6 +168,23 @@ public void startGame(){
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		if (currentState == GAME) {
+			if (e.getKeyCode() == KeyEvent.VK_UP) {
+				System.out.println("UP");
+				rocko.up = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				System.out.println("DOWN");
+				rocko.down = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				System.out.println("LEFT");
+				rocko.left = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				System.out.println("RIGHT");
+				rocko.right = false;
+			}
+	}
 	}
 }
