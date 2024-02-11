@@ -50,10 +50,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
-om.update();
-if (rocko.isActive == false) {
-currentState = END;	
-}
+		om.update();
+		if (rocko.isActive == false) {
+			currentState = END;
+		}
 	}
 
 	void updateEndState() {
@@ -76,13 +76,13 @@ currentState = END;
 	}
 
 	void drawGameState(Graphics g) {
-		
+
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 		om.draw(g);
 		g.setFont(titlePage);
 		g.setColor(Color.WHITE);
-		g.drawString("Score: "+ om.score, 25, 25);
+		g.drawString("Score: " + om.score, 25, 25);
 	}
 
 	void drawEndState(Graphics g) {
@@ -95,7 +95,7 @@ currentState = END;
 
 		g.setFont(titlePage);
 		g.setColor(Color.WHITE);
-		g.drawString("Score: "+ om.score, 25, 25);
+		g.drawString("Score: " + om.score, 25, 25);
 		g.drawString("You killed enemies", 150, 400);
 		g.drawString("Press ENTER to restart", 125, 500);
 	}
@@ -117,20 +117,22 @@ currentState = END;
 		// TODO Auto-generated method stub
 
 	}
-public void startGame(){
-	alienSpawner = new Timer (1000, om);
-	alienSpawner.start();
-}
+
+	public void startGame() {
+		alienSpawner = new Timer(1000, om);
+		alienSpawner.start();
+	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (currentState == GAME &&e.getKeyCode() == KeyEvent.VK_SPACE) {
-		om.addProjectile(rocko.getProjectile());	
-		if(currentState == END &&e.getKeyCode() == KeyEvent.VK_ENTER) {
-	Rocketship rocko = new Rocketship(250, 700, 50, 50);
-	ObjectManager om = new ObjectManager(rocko);
+		if (currentState == GAME && e.getKeyCode() == KeyEvent.VK_SPACE) {
+			om.addProjectile(rocko.getProjectile());
+			if (currentState == END && e.getKeyCode() == KeyEvent.VK_ENTER) {
+				Rocketship rocko = new Rocketship(250, 700, 50, 50);
+				ObjectManager om = new ObjectManager(rocko);
+			}
 		}
-		}
-		
+
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == END) {
 				currentState = MENU;
@@ -138,10 +140,10 @@ public void startGame(){
 				currentState++;
 			}
 
-			if(currentState == GAME) {
+			if (currentState == GAME) {
 				startGame();
 			}
-			if(currentState == END) {
+			if (currentState == END) {
 				startGame();
 			}
 		}
@@ -185,6 +187,6 @@ public void startGame(){
 				System.out.println("RIGHT");
 				rocko.right = false;
 			}
-	}
+		}
 	}
 }

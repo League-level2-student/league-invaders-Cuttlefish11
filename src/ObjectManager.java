@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ObjectManager implements ActionListener{
+public class ObjectManager implements ActionListener {
 	Rocketship Rocket;
 	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	ArrayList<Alien> aliens = new ArrayList<Alien>();
@@ -36,7 +36,7 @@ public class ObjectManager implements ActionListener{
 				projectile.isActive = false;
 			}
 		}
-	Rocket.update();
+		Rocket.update();
 		checkCollision();
 		purgeObjects();
 	}
@@ -66,7 +66,8 @@ public class ObjectManager implements ActionListener{
 			}
 		}
 	}
-	public int scoreGetter () {
+
+	public int scoreGetter() {
 		return score;
 	}
 
@@ -75,19 +76,19 @@ public class ObjectManager implements ActionListener{
 		// TODO Auto-generated method stub
 		addAlien();
 	}
-	void checkCollision(){
+
+	void checkCollision() {
 		for (Alien alien : aliens) {
 			if (Rocket.collisionBox.intersects(alien.collisionBox)) {
-			alien.isActive = false;	
-			Rocket.isActive = false;
-		}
+				alien.isActive = false;
+				Rocket.isActive = false;
+			}
 			for (Projectile projectile : projectiles) {
-			if (projectile.collisionBox.intersects(alien.collisionBox)){
-				alien.isActive = false;	
-				score ++;
+				if (projectile.collisionBox.intersects(alien.collisionBox)) {
+					alien.isActive = false;
+					score++;
+				}
 			}
-			}
+		}
 	}
 }
-}
-    
